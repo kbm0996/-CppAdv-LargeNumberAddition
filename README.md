@@ -14,41 +14,10 @@
 | unsigned long | 4 Bytes | 0 ~ 4,294,967,295 |
 | float | 4 Bytes | 1.2E-38 ~ 3.4E38 |
 | double | 8 Bytes | 2.2E-308 ~ 1.8E308 |
-**table 1. DataType Size, Range (32bit)
+
+**table 1. DataType Size, Range (32bit)*
  
- 따라서, 해당 범위를 넘어가는 숫자들 간의 연산을 한다면 오버플로우가 발생할 수 있다.
- 
-  ![capture](https://github.com/kbm0996/Simple-Text-Simulation-Game/blob/master/GIF.gif?raw=truee)
-  
-  **figure 1. Text Simulation (animated gif)*  
-  
-## 🅿 주요 소스 
-- **게임 매니저 클래스**
+ 그렇기 때문에 애초에 그 범위를 넘어서는 값은 변수에 대입할 수도 없다. 
+ 그리고 어떤 자료형이 표현할 수 있는 최대 범위에 근접한 숫자끼리 연산을 하면 오버플로우가 발생한다.
 
-      class GameManage
-      {
-      private:
-       /* 생략 */
-      public:
-       GameManager();
-       virtual ~GameManager() {}
-       
-       // 외부에서 호출하는 함수
-       bool Running();   
-
-      protected:
-      // 생성자에서 호출하는 함수
-       bool LoadEvent();  // *Event.txt를 불러오는 함수
-       bool LoadSelect(); // *Select.txt를 불러오는 함수
-       
-       // 내부에서 호출하는 함수
-       bool SceneView(int EventID);
-       int MoveEvent(int EventID);
-
-      private:
-       st_EVENT	 _stEvent[en_MAX_EVENT]; // 이벤트들을 저장하는 구조체
-       st_SELECT	 _stSelect[en_MAX_SELECT]; // 선택지들을 저장하는 구조체
-
-       int _iEventID; // 현재 가리키는 이벤트의 식별번호
-      };
-
+ 따라서, 일일이 문자열로 저장해놨다가 한 자릿수씩 연산을 한다던가 별도의 방법으로 진행해야 한다.
